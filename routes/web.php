@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\CreateTeamController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
+use App\Models\Team;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -9,9 +10,15 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () {
+    Route::get('/', function () {
+        return Inertia::render('Dashboard', [
+            'teams' => Team::all(),
+        ]);
+    })->name('dashboard');
+
+    Route::post('/', CreateTeamController::class)->name('dashboard.create-team');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
