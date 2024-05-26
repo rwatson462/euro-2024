@@ -10,6 +10,9 @@ const props = defineProps<{
         kickoff_time: string,
         home_team_id: string,
         away_team_id: string,
+        league: {
+            name: string;
+        }
         teams: {
             id: string,
             name: string,
@@ -117,6 +120,7 @@ function createNewLeague() {
                         <table class="w-full">
                             <thead>
                                 <tr>
+                                    <th class="text-left">Group</th>
                                     <th class="text-left">Kickoff time</th>
                                     <th class="text-center">Home team</th>
                                     <th class="text-center">Away team</th>
@@ -125,6 +129,7 @@ function createNewLeague() {
                             </thead>
                             <tbody>
                                 <tr v-for="(fixture, index) of props.fixtures.sort((a,b) => a.kickoff_time.localeCompare(b.kickoff_time))" :key="index">
+                                    <td class="text-left">{{ fixture.league?.name }}</td>
                                     <td class="text-left">{{ new Date(fixture.kickoff_time).toLocaleString()}}</td>
                                     <td class="text-center">{{ fixture.teams.find(team => team.pivot.home_or_away === 'home')!.name }}</td>
                                     <td class="text-center">{{ fixture.teams.find(team => team.pivot.home_or_away === 'away')!.name }}</td>

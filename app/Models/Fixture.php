@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -29,5 +30,10 @@ class Fixture extends Model
     public function teams(): BelongsToMany
     {
         return $this->belongsToMany(Team::class, 'fixture_teams')->withPivot(['home_or_away']);
+    }
+
+    public function league(): BelongsTo
+    {
+        return $this->belongsTo(League::class);
     }
 }
