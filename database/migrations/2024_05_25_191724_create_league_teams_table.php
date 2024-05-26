@@ -11,8 +11,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('league_teams', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-
             $table->foreignIdFor(League::class);
             $table->foreignIdFor(Team::class);
 

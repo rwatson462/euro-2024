@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\AddTeamToLeagueController;
 use App\Http\Controllers\CreateLeagueController;
 use App\Http\Controllers\CreateTeamController;
 use App\Http\Controllers\ProfileController;
-use App\Models\League;
-use App\Models\Team;
+use App\Http\Controllers\Views\ViewDashboardController;
+use App\Http\Controllers\Views\ViewLeagueController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -12,17 +13,25 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 });
 
-Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('Dashboard', [
-            'teams' => Team::all(),
-            'leagues' => League::all(),
-        ]);
-    })->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function() {
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', ViewDashboardController::class)->name('dashboard');
 
-    Route::post('/', CreateTeamController::class)->name('dashboard.create-team');
-    Route::post('/', CreateLeagueController::class)->name('dashboard.create-league');
+        Route::post('/', CreateTeamController::class)->name('dashboard.create-team');
+        Route::post('/', CreateLeagueController::class)->name('dashboard.create-league');
+    });
+
+    Route::prefix('leagues')->group(function () {
+        Route::get('/{league_id}', ViewLeagueController::class)->name('league');
+
+        Route::post('/{league_id}/add-team', AddTeamToLeagueController::class)->name('league.add-team');
+    });
 });
+
+
+
+
+// --- User related stuff
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
