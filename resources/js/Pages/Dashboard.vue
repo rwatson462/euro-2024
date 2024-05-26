@@ -133,12 +133,6 @@ function createNewLeague() {
                             </tbody>
                         </table>
                     </div>
-                    <div class="p-6">
-                        <form class="flex justify-between items-center" @submit.prevent="createNewTeam">
-                            <input type="text" placeholder="Team name" name="name" v-model="createTeamForm.name"/>
-                            <button type="submit">Create team</button>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>
