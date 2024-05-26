@@ -17,6 +17,6 @@ class AddTeamToLeagueController extends Controller
 
         League::findOrFail($league_id)->teams()->attach(Team::findOrFail($team['team_id']));
 
-        return Redirect::route('league', ['league_id' => $league_id]);
+        return Redirect::route('league.view', ['league_id' => $league_id]);
     }
 }

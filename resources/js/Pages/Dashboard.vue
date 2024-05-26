@@ -55,7 +55,7 @@ function createNewLeague() {
                     <div class="p-6">
                         <ul>
                             <li v-for="(league, index) of props.leagues" :key="index" class="flex justify-between items-center">
-                                <Link :href="route('league', {'league_id': league.id})" class="text-sky-600 hover:text-gray-600">{{ league.name }}</Link>
+                                <Link :href="route('league.view', {'league_id': league.id})" class="text-sky-600 hover:text-gray-600">{{ league.name }}</Link>
                                 <span>{{ league.id }}</span>
                             </li>
                         </ul>
