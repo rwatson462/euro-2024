@@ -5,6 +5,19 @@ import {Head, Link, useForm} from '@inertiajs/vue3';
 const props = defineProps<{
     teams: { id: string, name: string }[];
     leagues: { id: string, name: string }[];
+    fixtures: {
+        id: string,
+        kickoff_time: string,
+        home_team_id: string,
+        away_team_id: string,
+        teams: {
+            id: string,
+            name: string,
+            pivot: {
+                home_or_away: "home"|"away",
+            },
+        }[],
+    }[],
 }>()
 
 const createTeamForm = useForm({
@@ -84,6 +97,41 @@ function createNewLeague() {
                                 <span>{{ team.id }}</span>
                             </li>
                         </ul>
+                    </div>
+                    <div class="p-6">
+                        <form class="flex justify-between items-center" @submit.prevent="createNewTeam">
+                            <input type="text" placeholder="Team name" name="name" v-model="createTeamForm.name"/>
+                            <button type="submit">Create team</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="py-6">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100 font-bold text-2xl">Fixtures ({{ fixtures.length }})</div>
+
+                    <div class="p-6">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">Kickoff time</th>
+                                    <th class="text-center">Home team</th>
+                                    <th class="text-center">Away team</th>
+                                    <th class="text-right">Fixture ID</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(fixture, index) of props.fixtures.sort((a,b) => a.kickoff_time.localeCompare(b.kickoff_time))" :key="index">
+                                    <td class="text-left">{{ new Date(fixture.kickoff_time).toLocaleString()}}</td>
+                                    <td class="text-center">{{ fixture.teams.find(team => team.pivot.home_or_away === 'home')!.name }}</td>
+                                    <td class="text-center">{{ fixture.teams.find(team => team.pivot.home_or_away === 'away')!.name }}</td>
+                                    <td class="text-right">{{ fixture.id }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="p-6">
                         <form class="flex justify-between items-center" @submit.prevent="createNewTeam">
