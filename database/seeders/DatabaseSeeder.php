@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
 
         $this->createTeams();
         $this->createLeagues();
+        $this->addTeamsToLeagues();
     }
 
     private function createTeams(): void
@@ -89,6 +90,57 @@ class DatabaseSeeder extends Seeder
                 'ruleset' => Ruleset::Football,
                 'slug' => Str::slug($league),
             ]);
+        }
+    }
+
+    private function addTeamsToLeagues(): void
+    {
+        $leagues = [
+            'Euro 2024 - Group A' => [
+                'Switzerland',
+                'Germany',
+                'Scotland',
+                'Hungary',
+            ],
+            'Euro 2024 - Group B' => [
+                'Albania',
+                'Spain',
+                'Croatia',
+                'Italy',
+            ],
+            'Euro 2024 - Group C' => [
+                'England',
+                'Slovenia',
+                'Serbia',
+                'Denmark',
+            ],
+            'Euro 2024 - Group D' => [
+                'Poland',
+                'Netherlands',
+                'Austria',
+                'France',
+            ],
+            'Euro 2024 - Group E' => [
+                'Belgium',
+                'Slovakia',
+                'Romania',
+                'Ukraine',
+            ],
+            'Euro 2024 - Group F' => [
+                'Turkey',
+                'Georgia',
+                'Portugal',
+                'Czech Republic',
+            ],
+        ];
+
+        foreach ($leagues as $league => $teams) {
+            $league = League::where('name', $league)->first();
+
+            foreach ($teams as $team) {
+                $team = Team::where('name', $team)->first();
+                $league->teams()->attach($team);
+            }
         }
     }
 }
