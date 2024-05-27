@@ -130,7 +130,7 @@ function createFixture() {
                                     v-for="(fixture, index) of props.league.fixtures.sort((a,b) => a.kickoff_time.localeCompare(b.kickoff_time))"
                                     :key="index"
                                 >
-                                    <td class="text-left">{{ new Date(fixture.kickoff_time).toLocaleString()}}</td>
+                                    <td class="text-left">{{ new Date(fixture.kickoff_time).toLocaleString("en-GB", {timeZone: 'UTC'})}}</td>
                                     <td class="text-center">{{ fixture.teams.find(team => team.pivot.home_or_away === 'home')!.name }}</td>
                                     <td class="text-center">{{ fixture.teams.find(team => team.pivot.home_or_away === 'away')!.name }}</td>
                                     <td class="text-right">{{ fixture.id }}</td>
