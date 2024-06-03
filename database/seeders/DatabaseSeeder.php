@@ -156,51 +156,51 @@ class DatabaseSeeder extends Seeder
         };
 
         $league = League::firstWhere('name', 'Euro 2024 - Group A');
-        $createFixture($league, Carbon::parse('2024-06-14 20:00', 'UTC'), 'Germany', 'Scotland');
-        $createFixture($league, Carbon::parse('2024-06-15 14:00', 'UTC'), 'Hungary', 'Switzerland');
-        $createFixture($league, Carbon::parse('2024-06-19 17:00', 'UTC'), 'Germany', 'Hungary');
-        $createFixture($league, Carbon::parse('2024-06-19 20:00', 'UTC'), 'Scotland', 'Switzerland');
-        $createFixture($league, Carbon::parse('2024-06-23 20:00', 'UTC'), 'Scotland', 'Hungary');
-        $createFixture($league, Carbon::parse('2024-06-23 20:00', 'UTC'), 'Switzerland', 'Germany');
+        $createFixture($league, Carbon::parse('2024-06-14 20:00'), 'Germany', 'Scotland');
+        $createFixture($league, Carbon::parse('2024-06-15 14:00'), 'Hungary', 'Switzerland');
+        $createFixture($league, Carbon::parse('2024-06-19 17:00'), 'Germany', 'Hungary');
+        $createFixture($league, Carbon::parse('2024-06-19 20:00'), 'Scotland', 'Switzerland');
+        $createFixture($league, Carbon::parse('2024-06-23 20:00'), 'Scotland', 'Hungary');
+        $createFixture($league, Carbon::parse('2024-06-23 20:00'), 'Switzerland', 'Germany');
 
         $league = League::firstWhere('name', 'Euro 2024 - Group B');
-        $createFixture($league, Carbon::parse('2024-06-15 17:00', 'UTC'), 'Spain', 'Croatia');
-        $createFixture($league, Carbon::parse('2024-06-15 20:00', 'UTC'), 'Italy', 'Albania');
-        $createFixture($league, Carbon::parse('2024-06-19 14:00', 'UTC'), 'Croatia', 'Albania');
-        $createFixture($league, Carbon::parse('2024-06-20 20:00', 'UTC'), 'Spain', 'Italy');
-        $createFixture($league, Carbon::parse('2024-06-24 20:00', 'UTC'), 'Albania', 'Spain');
-        $createFixture($league, Carbon::parse('2024-06-24 20:00', 'UTC'), 'Croatia', 'Italy');
+        $createFixture($league, Carbon::parse('2024-06-15 17:00'), 'Spain', 'Croatia');
+        $createFixture($league, Carbon::parse('2024-06-15 20:00'), 'Italy', 'Albania');
+        $createFixture($league, Carbon::parse('2024-06-19 14:00'), 'Croatia', 'Albania');
+        $createFixture($league, Carbon::parse('2024-06-20 20:00'), 'Spain', 'Italy');
+        $createFixture($league, Carbon::parse('2024-06-24 20:00'), 'Albania', 'Spain');
+        $createFixture($league, Carbon::parse('2024-06-24 20:00'), 'Croatia', 'Italy');
 
         $league = League::firstWhere('name', 'Euro 2024 - Group C');
-        $createFixture($league, Carbon::parse('2024-06-16 17:00', 'UTC'), 'Slovenia', 'Denmark');
-        $createFixture($league, Carbon::parse('2024-06-16 20:00', 'UTC'), 'Serbia', 'England');
-        $createFixture($league, Carbon::parse('2024-06-20 14:00', 'UTC'), 'Slovenia', 'Serbia');
-        $createFixture($league, Carbon::parse('2024-06-20 17:00', 'UTC'), 'Denmark', 'England');
-        $createFixture($league, Carbon::parse('2024-06-25 20:00', 'UTC'), 'Denmark', 'Serbia');
-        $createFixture($league, Carbon::parse('2024-06-25 20:00', 'UTC'), 'England', 'Slovenia');
+        $createFixture($league, Carbon::parse('2024-06-16 17:00'), 'Slovenia', 'Denmark');
+        $createFixture($league, Carbon::parse('2024-06-16 20:00'), 'Serbia', 'England');
+        $createFixture($league, Carbon::parse('2024-06-20 14:00'), 'Slovenia', 'Serbia');
+        $createFixture($league, Carbon::parse('2024-06-20 17:00'), 'Denmark', 'England');
+        $createFixture($league, Carbon::parse('2024-06-25 20:00'), 'Denmark', 'Serbia');
+        $createFixture($league, Carbon::parse('2024-06-25 20:00'), 'England', 'Slovenia');
 
         $league = League::firstWhere('name', 'Euro 2024 - Group D');
-        $createFixture($league, Carbon::parse('2024-06-16 14:00', 'UTC'), 'Poland', 'Netherlands');
-        $createFixture($league, Carbon::parse('2024-06-17 20:00', 'UTC'), 'Austria', 'France');
-        $createFixture($league, Carbon::parse('2024-06-21 17:00', 'UTC'), 'Poland', 'Austria');
-        $createFixture($league, Carbon::parse('2024-06-21 20:00', 'UTC'), 'Netherlands', 'France');
-        $createFixture($league, Carbon::parse('2024-06-25 17:00', 'UTC'), 'France', 'Poland');
-        $createFixture($league, Carbon::parse('2024-06-25 17:00', 'UTC'), 'Netherlands', 'Austria');
+        $createFixture($league, Carbon::parse('2024-06-16 14:00'), 'Poland', 'Netherlands');
+        $createFixture($league, Carbon::parse('2024-06-17 20:00'), 'Austria', 'France');
+        $createFixture($league, Carbon::parse('2024-06-21 17:00'), 'Poland', 'Austria');
+        $createFixture($league, Carbon::parse('2024-06-21 20:00'), 'Netherlands', 'France');
+        $createFixture($league, Carbon::parse('2024-06-25 17:00'), 'France', 'Poland');
+        $createFixture($league, Carbon::parse('2024-06-25 17:00'), 'Netherlands', 'Austria');
 
         $league = League::firstWhere('name', 'Euro 2024 - Group E');
-        $createFixture($league, Carbon::parse('2024-06-17 14:00', 'UTC'), 'Romania', 'Ukraine');
-        $createFixture($league, Carbon::parse('2024-06-17 17:00', 'UTC'), 'Belgium', 'Slovakia');
-        $createFixture($league, Carbon::parse('2024-06-21 14:00', 'UTC'), 'Slovakia', 'Ukraine');
-        $createFixture($league, Carbon::parse('2024-06-22 20:00', 'UTC'), 'Belgium', 'Romania');
-        $createFixture($league, Carbon::parse('2024-06-26 17:00', 'UTC'), 'Slovakia', 'Romania');
-        $createFixture($league, Carbon::parse('2024-06-26 17:00', 'UTC'), 'Ukraine', 'Belgium');
+        $createFixture($league, Carbon::parse('2024-06-17 14:00'), 'Romania', 'Ukraine');
+        $createFixture($league, Carbon::parse('2024-06-17 17:00'), 'Belgium', 'Slovakia');
+        $createFixture($league, Carbon::parse('2024-06-21 14:00'), 'Slovakia', 'Ukraine');
+        $createFixture($league, Carbon::parse('2024-06-22 20:00'), 'Belgium', 'Romania');
+        $createFixture($league, Carbon::parse('2024-06-26 17:00'), 'Slovakia', 'Romania');
+        $createFixture($league, Carbon::parse('2024-06-26 17:00'), 'Ukraine', 'Belgium');
 
         $league = League::firstWhere('name', 'Euro 2024 - Group F');
-        $createFixture($league, Carbon::parse('2024-06-18 17:00', 'UTC'), 'Turkey', 'Georgia');
-        $createFixture($league, Carbon::parse('2024-06-18 20:00', 'UTC'), 'Portugal', 'Czech Republic');
-        $createFixture($league, Carbon::parse('2024-06-22 14:00', 'UTC'), 'Georgia', 'Czech Republic');
-        $createFixture($league, Carbon::parse('2024-06-22 17:00', 'UTC'), 'Turkey', 'Portugal');
-        $createFixture($league, Carbon::parse('2024-06-26 20:00', 'UTC'), 'Czech Republic', 'Turkey');
-        $createFixture($league, Carbon::parse('2024-06-26 20:00', 'UTC'), 'Georgia', 'Portugal');
+        $createFixture($league, Carbon::parse('2024-06-18 17:00'), 'Turkey', 'Georgia');
+        $createFixture($league, Carbon::parse('2024-06-18 20:00'), 'Portugal', 'Czech Republic');
+        $createFixture($league, Carbon::parse('2024-06-22 14:00'), 'Georgia', 'Czech Republic');
+        $createFixture($league, Carbon::parse('2024-06-22 17:00'), 'Turkey', 'Portugal');
+        $createFixture($league, Carbon::parse('2024-06-26 20:00'), 'Czech Republic', 'Turkey');
+        $createFixture($league, Carbon::parse('2024-06-26 20:00'), 'Georgia', 'Portugal');
     }
 }
