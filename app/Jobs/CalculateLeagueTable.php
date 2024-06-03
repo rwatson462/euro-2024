@@ -75,6 +75,9 @@ class CalculateLeagueTable //implements ShouldQueue
                     'league_id' => $league->id,
                 ])
         )->sort(fn ($a, $b) => ($b['points']) <=> ($a['points'])
+            // first tie-breaker is "highest number of points among the matches played between tied teams"
+            // second tie-breaker is "goal difference among the matches played between tied teams"
+            // third tie-breaker is "highest number of goals scored among the matches played between tied teams"
                 ?: ($b['goal_difference']) <=> ($a['goal_difference'])
                 ?: $b['goals_for'] <=> $a['goals_for']
         )->values()  // reset array keys is important for figuring out the position of each team
