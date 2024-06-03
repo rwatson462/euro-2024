@@ -42,4 +42,9 @@ class League extends Model
     {
         return $this->hasMany(Fixture::class);
     }
+
+    public function matches(): HasMany
+    {
+        return $this->hasMany(Fixture::class)->whereHas('results');
+    }
 }

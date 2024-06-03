@@ -8,11 +8,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
  * @property string $id
  * @property string $league_id
  * @property Carbon $kickoff_time
+ * @property Collection<FixtureResult> $results
  */
 class Fixture extends Model
 {
@@ -35,5 +38,10 @@ class Fixture extends Model
     public function league(): BelongsTo
     {
         return $this->belongsTo(League::class);
+    }
+
+    public function results(): HasMany
+    {
+        return $this->hasMany(FixtureResult::class);
     }
 }

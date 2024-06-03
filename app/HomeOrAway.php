@@ -4,7 +4,7 @@ namespace App;
 
 enum HomeOrAway: string
 {
-    const Home = 'home';
+    case Home = 'home';
 
-    const Away = 'away';
+    case Away = 'away';
 }
