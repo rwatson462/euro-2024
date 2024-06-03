@@ -5,6 +5,7 @@ use App\Http\Controllers\CreateFixtureController;
 use App\Http\Controllers\CreateLeagueController;
 use App\Http\Controllers\CreateTeamController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RecalculateLeagueTableController;
 use App\Http\Controllers\Views\ViewDashboardController;
 use App\Http\Controllers\Views\ViewLeagueController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::post('/{league_id}/add-team', AddTeamToLeagueController::class)->name('add-team');
         Route::post('/{league_id}/create-fixture', CreateFixtureController::class)->name('create-fixture');
+        Route::get('/{league_id}/recalculate-table', RecalculateLeagueTableController::class)->name('recalculate-table');
     });
 });
 

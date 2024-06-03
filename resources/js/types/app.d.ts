@@ -23,3 +23,18 @@ export interface Fixture {
     away_team_id: string,
     teams: Team[],
 }
+
+export interface LeagueTableRecord {
+    id: string,
+    league_id: string,
+    team_id: string,
+    played: number,
+    won: number,
+    drawn: number,
+    lost: number,
+    goals_for: number,
+    goals_against: number,
+    goal_difference: number,
+    points: number,
+    team: Team,
+}

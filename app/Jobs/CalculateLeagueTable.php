@@ -25,6 +25,7 @@ class CalculateLeagueTable //implements ShouldQueue
 
     public function handle(): void
     {
+        /** @var League $league */
         $league = League::findOrFail($this->leagueId);
 
         // for each team in the league, get their match results, calculate stats and update the league table
