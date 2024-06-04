@@ -82,9 +82,9 @@ class CalculateLeagueTable //implements ShouldQueue
                 ?: $b['goals_for'] <=> $a['goals_for']
         )->values()  // reset array keys is important for figuring out the position of each team
             ->map(fn ($record, int $key) => [
-            ...$record,
-            'position' => $key + 1,
-        ])
+                ...$record,
+                'position' => $key + 1,
+            ])
             ->sort(fn ($a, $b) => $a['position'] <=> $b['position']);
 
         // delete existing league table records
