@@ -16,6 +16,7 @@ use Illuminate\Support\Collection;
  * @property string $league_id
  * @property Carbon $kickoff_time
  * @property Collection<FixtureResult> $results
+ * @property Collection<Team> $teams
  */
 class Fixture extends Model
 {

@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import {Fixture, Team} from "@/types/app";
 import {computed} from "vue";
-import {useForm} from "@inertiajs/vue3";
+import AddFixtureForm from "@/Components/League/Forms/AddFixtureForm.vue";
+import {Link} from "@inertiajs/vue3";
+import Container from "@/Components/Container.vue";
+import {formatDate} from "../../helpers/date";
 
 const props = defineProps<{
     leagueId: string,
@@ -9,80 +12,51 @@ const props = defineProps<{
     teams: Team[],
 }>()
 
-function homeTeam(fixture: Fixture) {
-    return fixture.teams.find(team => team.pivot.home_or_away === 'home')!.name
+function homeTeam(fixture: Fixture): Team {
+    return fixture.teams.find(team => team.pivot.home_or_away === 'home')!
 }
 
-function awayTeam(fixture: Fixture) {
-    return fixture.teams.find(team => team.pivot.home_or_away === 'away')!.name
+function awayTeam(fixture: Fixture): Team {
+    return fixture.teams.find(team => team.pivot.home_or_away === 'away')!
 }
 
-const form = useForm({
-    kickoff_time: '',
-    home_team_id: '',
-    away_team_id: '',
-})
-
-function createFixture() {
-    if (form.home_team_id === '' || form.away_team_id === '' || form.kickoff_time === '') {
-        alert('Must select a home team, away team and a kickoff time')
-        return
+function finalScore(fixture: Fixture): string {
+    if (fixture.results.length === 0) {
+        return ''
     }
-    form.post(route('league.create-fixture', { league_id: props.leagueId }))
-    form.reset()
+    return `${fixture.results[0].goals_scored} - ${fixture.results[0].goals_conceded}`
 }
 
-const teams = computed(() => props.teams.sort((a,b) => a.name.localeCompare(b.name)))
 const fixtures = computed(() => props.fixtures.sort((a,b) => a.kickoff_time.localeCompare(b.kickoff_time)))
 </script>
 
 <template>
-    <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100 font-bold text-2xl">Fixtures</div>
-                <div class="p-6">
-                    <table class="w-full">
-                        <thead>
-                        <tr>
-                            <th class="text-left">Kickoff time</th>
-                            <th class="text-center">Home team</th>
-                            <th class="text-center">Away team</th>
-                            <th class="text-right">Fixture ID</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr
-                            v-for="(fixture, index) of fixtures"
-                            :key="index"
-                        >
-                            <td class="text-left">{{ new Date(fixture.kickoff_time).toLocaleString("en-GB", {timeZone: 'UTC'})}}</td>
-                            <td class="text-center">{{ homeTeam(fixture)  }}</td>
-                            <td class="text-center">{{ awayTeam(fixture) }}</td>
-                            <td class="text-right">{{ fixture.id }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="p-6">
-                    <form class="flex justify-between items-center" @submit.prevent="createFixture">
-                        <select name="home_team_id" v-model="form.home_team_id" class="dark:text-slate-900">
-                            <option value="" :disabled="true" :selected="true">Home team</option>
-                            <option v-for="(team, index) of teams" :key="index" :value="team.id">
-                                {{ team.name }}
-                            </option>
-                        </select>
-                        <select name="away_team_id" v-model="form.away_team_id" class="dark:text-slate-900">
-                            <option value="" :disabled="true" :selected="true">Away team</option>
-                            <option v-for="(team, index) of teams" :key="index" :value="team.id">
-                                {{ team.name }}
-                            </option>
-                        </select>
-                        <input type="datetime-local" name="kickoff_time" v-model="form.kickoff_time" class="dark:text-slate-900" />
-                        <button type="submit">Add fixture</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <Container title="Fixtures">
+        <table class="w-full table-fixed">
+            <thead>
+            <tr>
+                <th class="text-left">Kickoff time</th>
+                <th class="text-center">Home team</th>
+                <th class="text-center">Score</th>
+                <th class="text-center">Away team</th>
+                <th class="text-right w-32">&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+                v-for="(fixture, index) of fixtures"
+                :key="index"
+            >
+                <td class="text-left">{{ formatDate(fixture.kickoff_time) }}</td>
+                <td class="text-center">{{ homeTeam(fixture).name  }}</td>
+                <td class="text-center">{{ finalScore(fixture) }}</td>
+                <td class="text-center">{{ awayTeam(fixture).name }}</td>
+                <td class="text-right">
+                    <Link :href="route('results.add', {'fixture_id': fixture.id})" class="text-sky-600 hover:text-gray-600">Add result</Link>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <AddFixtureForm :teams="props.teams"/>
+    </Container>
 </template>

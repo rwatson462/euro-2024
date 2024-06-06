@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, Link, useForm} from '@inertiajs/vue3';
+import Container from "@/Components/Container.vue";
+import {formatDate} from "../helpers/date";
 
 const props = defineProps<{
     teams: { id: string, name: string }[];
@@ -63,83 +65,54 @@ function createNewLeague() {
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Dashboard</h2>
         </template>
 
-        <div class="py-6">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100 font-bold text-2xl">Leagues ({{ leagues.length }})</div>
+        <Container :title="`Leagues (${leagues.length})`">
+            <ul>
+                <li v-for="(league, index) of props.leagues" :key="index" class="flex justify-between items-center">
+                    <Link :href="route('league.view', {'league_id': league.id})" class="text-sky-600 hover:text-gray-600">{{ league.name }}</Link>
+                    <span>{{ league.id }}</span>
+                </li>
+            </ul>
 
-                    <div class="p-6">
-                        <ul>
-                            <li v-for="(league, index) of props.leagues" :key="index" class="flex justify-between items-center">
-                                <Link :href="route('league.view', {'league_id': league.id})" class="text-sky-600 hover:text-gray-600">{{ league.name }}</Link>
-                                <span>{{ league.id }}</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="p-6">
-                        <form class="flex justify-between items-center" @submit.prevent="createNewLeague">
-                            <input type="text" placeholder="League name" name="name" v-model="createLeagueForm.name"/>
-                            <input type="date" placeholder="Start date" name="start_date" v-model="createLeagueForm.start_date"/>
-                            <input type="date" placeholder="End date" name="end_date" v-model="createLeagueForm.end_date"/>
-                            <button type="submit">Create league</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="py-6">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100 font-bold text-2xl">Teams ({{ teams.length }})</div>
-
-                    <div class="p-6">
-                        <ul>
-                            <li v-for="(team, index) of props.teams" :key="index" class="flex justify-between items-center">
-                                <span>{{ team.name }}</span>
-                                <span>{{ team.id }}</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="p-6">
-                        <form class="flex justify-between items-center" @submit.prevent="createNewTeam">
-                            <input type="text" placeholder="Team name" name="name" v-model="createTeamForm.name"/>
-                            <button type="submit">Create team</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="py-6">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100 font-bold text-2xl">Fixtures ({{ fixtures.length }})</div>
-
-                    <div class="p-6">
-                        <table class="w-full">
-                            <thead>
-                                <tr>
-                                    <th class="text-left">Group</th>
-                                    <th class="text-left">Kickoff time</th>
-                                    <th class="text-center">Home team</th>
-                                    <th class="text-center">Away team</th>
-                                    <th class="text-right">Fixture ID</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(fixture, index) of props.fixtures.sort((a,b) => a.kickoff_time.localeCompare(b.kickoff_time))" :key="index">
-                                    <td class="text-left">{{ fixture.league?.name }}</td>
-                                    <td class="text-left">{{ new Date(fixture.kickoff_time).toLocaleString("en-GB", {timeZone: 'UTC'})}}</td>
-                                    <td class="text-center">{{ fixture.teams.find(team => team.pivot.home_or_away === 'home')!.name }}</td>
-                                    <td class="text-center">{{ fixture.teams.find(team => team.pivot.home_or_away === 'away')!.name }}</td>
-                                    <td class="text-right">{{ fixture.id }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <form class="flex justify-between items-center" @submit.prevent="createNewLeague">
+                <input type="text" placeholder="League name" name="name" v-model="createLeagueForm.name"/>
+                <input type="date" placeholder="Start date" name="start_date" v-model="createLeagueForm.start_date"/>
+                <input type="date" placeholder="End date" name="end_date" v-model="createLeagueForm.end_date"/>
+                <button type="submit">Create league</button>
+            </form>
+        </Container>
+        <Container :title="`Teams (${teams.length})`">
+            <ul>
+                <li v-for="(team, index) of props.teams" :key="index" class="flex justify-between items-center">
+                    <span>{{ team.name }}</span>
+                    <span>{{ team.id }}</span>
+                </li>
+            </ul>
+            <form class="flex justify-between items-center" @submit.prevent="createNewTeam">
+                <input type="text" placeholder="Team name" name="name" v-model="createTeamForm.name"/>
+                <button type="submit">Create team</button>
+            </form>
+        </Container>
+        <Container :title="`Fixtures (${fixtures.length})`">
+            <table class="w-full">
+                <thead>
+                    <tr>
+                        <th class="text-left">Group</th>
+                        <th class="text-left">Kickoff time</th>
+                        <th class="text-center">Home team</th>
+                        <th class="text-center">Away team</th>
+                        <th class="text-right">Fixture ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(fixture, index) of props.fixtures.sort((a,b) => a.kickoff_time.localeCompare(b.kickoff_time))" :key="index">
+                        <td class="text-left">{{ fixture.league?.name }}</td>
+                        <td class="text-left">{{ formatDate(fixture.kickoff_time) }}</td>
+                        <td class="text-center">{{ fixture.teams.find(team => team.pivot.home_or_away === 'home')!.name }}</td>
+                        <td class="text-center">{{ fixture.teams.find(team => team.pivot.home_or_away === 'away')!.name }}</td>
+                        <td class="text-right">{{ fixture.id }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </Container>
     </AuthenticatedLayout>
 </template>

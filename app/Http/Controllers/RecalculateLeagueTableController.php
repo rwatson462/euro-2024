@@ -9,7 +9,7 @@ class RecalculateLeagueTableController extends Controller
 {
     public function __invoke(string $league_id)
     {
-        CalculateLeagueTable::dispatchSync($league_id);
+        dispatch(new CalculateLeagueTable($league_id));
 
         return Redirect::route('league.view', ['league_id' => $league_id]);
     }

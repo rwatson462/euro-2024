@@ -1,4 +1,6 @@
 
+export type MatchResult = 'winner' | 'loser'
+
 export interface League {
     id: string,
     name: string,
@@ -16,12 +18,22 @@ export interface Team {
     },
 }
 
+export interface FixtureResult {
+    id: string,
+    fixture_id: string,
+    team_id: string,
+    result: MatchResult,
+    goals_scored: number,
+    goals_conceded: number,
+}
+
 export interface Fixture {
     id: string,
     kickoff_time: string,
     home_team_id: string,
     away_team_id: string,
     teams: Team[],
+    results: FixtureResult[],
 }
 
 export interface LeagueTableRecord {
