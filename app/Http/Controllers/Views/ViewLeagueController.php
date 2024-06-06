@@ -12,7 +12,7 @@ class ViewLeagueController
     public function __invoke(string $league_id)
     {
         return Inertia::render('League', [
-            'league' => League::with(['teams', 'fixtures', 'fixtures.teams', 'fixtures.results'])->findOrFail($league_id),
+            'league' => League::with(['teams', 'fixtures', 'fixtures.teams', 'fixtures.results', 'fixtures.league'])->findOrFail($league_id),
             'teams' => Team::whereDoesntHave('league')->get(),
             'table' => LeagueTable::with('team')->whereLeagueId($league_id)->get(),
         ]);

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\HomeOrAway;
+use App\Jobs\CalculateLeagueTable;
 use App\Models\League;
 use App\Models\Team;
 use App\Models\User;
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->createLeagues();
         $this->addTeamsToLeagues();
         $this->addFixtures();
+        $this->buildLeagueTables();
     }
 
     private function createTeams(): void
@@ -202,5 +204,10 @@ class DatabaseSeeder extends Seeder
         $createFixture($league, Carbon::parse('2024-06-22 17:00', 'BST')->setTimeZone('UTC'), 'Turkey', 'Portugal');
         $createFixture($league, Carbon::parse('2024-06-26 20:00', 'BST')->setTimeZone('UTC'), 'Czech Republic', 'Turkey');
         $createFixture($league, Carbon::parse('2024-06-26 20:00', 'BST')->setTimeZone('UTC'), 'Georgia', 'Portugal');
+    }
+
+    private function buildLeagueTables(): void
+    {
+        League::all()->each(fn (League $league) => dispatch(new CalculateLeagueTable($league->id)));
     }
 }

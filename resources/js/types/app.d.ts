@@ -34,6 +34,7 @@ export interface Fixture {
     away_team_id: string,
     teams: Team[],
     results: FixtureResult[],
+    league: League,
 }
 
 export interface LeagueTableRecord {

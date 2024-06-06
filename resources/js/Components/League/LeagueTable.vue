@@ -16,14 +16,14 @@ defineProps<{
             <thead>
             <tr>
                 <th class="text-left">Team</th>
-                <th class="text-center">P</th>
-                <th class="text-center">W</th>
-                <th class="text-center">D</th>
-                <th class="text-center">L</th>
-                <th class="text-center">GD</th>
-                <th class="text-center">F</th>
-                <th class="text-center">A</th>
-                <th class="text-right">Pts</th>
+                <th class="text-center"><abbr title="Games played">P</abbr></th>
+                <th class="text-center"><abbr title="Wins">W</abbr></th>
+                <th class="text-center"><abbr title="Draws">D</abbr></th>
+                <th class="text-center"><abbr title="Losses">L</abbr></th>
+                <th class="text-center"><abbr title="Goal difference">GD</abbr></th>
+                <th class="text-center"><abbr title="Goals scored (for)">F</abbr></th>
+                <th class="text-center"><abbr title="Goals conceded (against)">A</abbr></th>
+                <th class="text-right"><abbr title="Points">Pts</abbr></th>
             </tr>
             </thead>
             <tbody>

@@ -14,7 +14,7 @@ class ViewDashboardController
         return Inertia::render('Dashboard', [
             'teams' => Team::all(),
             'leagues' => League::all(),
-            'fixtures' => Fixture::with('teams', 'league')->get(),
+            'fixtures' => Fixture::with('teams', 'league', 'results')->get(),
         ]);
     }
 }

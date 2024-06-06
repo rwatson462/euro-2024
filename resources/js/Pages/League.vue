@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import {Head, useForm} from '@inertiajs/vue3';
+import {Head} from '@inertiajs/vue3';
 import {League, LeagueTableRecord, Team} from "@/types/app";
 import LeagueHeader from "@/Components/League/LeagueHeader.vue";
-import TeamList from "@/Components/League/TeamList.vue";
-import FixtureList from "@/Components/League/FixtureList.vue";
+import TeamList from "@/Components/League/TeamsListContainer.vue";
 import LeagueTable from "@/Components/League/LeagueTable.vue";
+import FixtureListContainer from "@/Components/League/FixturesListContainer.vue";
+import PageTitle from "@/Components/PageTitle.vue";
 
 defineProps<{
     league: League;
@@ -20,12 +21,12 @@ defineProps<{
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ league.name }}</h2>
+            <PageTitle :title="league.name"/>
         </template>
 
         <LeagueHeader :league="league" />
         <LeagueTable :table="table" :league-id="league.id" />
-        <FixtureList :fixtures="league.fixtures" :league-id="league.id" :teams="teams"/>
+        <FixtureListContainer :fixtures="league.fixtures" :league-id="league.id" :teams="teams"/>
         <TeamList :available-teams="teams" :league-teams="league.teams" :league-id="league.id" />
     </AuthenticatedLayout>
 </template>
