@@ -50,4 +50,5 @@ export interface LeagueTableRecord {
     goal_difference: number,
     points: number,
     team: Team,
+    league: League;
 }

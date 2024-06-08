@@ -8,14 +8,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecalculateLeagueTableController;
 use App\Http\Controllers\StoreResultController;
 use App\Http\Controllers\Views\AddResultController;
+use App\Http\Controllers\Views\MainPageController;
 use App\Http\Controllers\Views\ViewDashboardController;
 use App\Http\Controllers\Views\ViewLeagueController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-});
+Route::get('/', MainPageController::class)->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('dashboard')->group(function () {
