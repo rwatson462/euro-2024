@@ -4,13 +4,12 @@ import {computed} from "vue";
 import {PageProps} from "@/types";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import Container from "@/Components/Container.vue";
-import {LeagueTableRecord} from "@/types/app";
+import {League, LeagueTableRecord} from "@/types/app";
 
 const props = defineProps<PageProps<{
     leagueTables: LeagueTableRecord[];
+    leagues: League[];
 }>>()
-
-const loggedIn = computed(() => !!props.auth.user)
 
 const groups = computed(() => props.leagueTables.reduce(
         (acc, row) => {
@@ -42,8 +41,8 @@ const tables = computed(() => props.leagueTables.reduce(
                 Euro 2024 Group Standings
             </p>
 
-            <div v-for="(group,key) of groups" :key="key">
-                <h3 class="text-xl font-semibold">{{ group }}</h3>
+            <div v-for="(league,key) of leagues" :key="key">
+                <h3 class="text-xl font-semibold">{{ league.name }}</h3>
                 <table class="w-full">
                     <thead>
                     <tr>
@@ -59,7 +58,7 @@ const tables = computed(() => props.leagueTables.reduce(
                     </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(row,key) of tables[group]" :key="key" class="hover:dark:bg-slate-700 hover:bg-slate-100 border-b border-b-slate-700">
+                        <tr v-for="(row,key) of tables[league.name]" :key="key" class="hover:dark:bg-slate-700 hover:bg-slate-100 border-b border-b-slate-700">
                             <td class="text-left border-r border-r-slate-700">{{ row.team.name }}</td>
                             <td class="text-center">{{ row.played }}</td>
                             <td class="text-center">{{ row.won  }}</td>
