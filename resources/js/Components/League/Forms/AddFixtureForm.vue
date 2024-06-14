@@ -5,6 +5,7 @@ import {computed} from "vue";
 
 const props = defineProps<{
     teams: Team[],
+    leagueId: string,
 }>()
 
 const form = useForm({

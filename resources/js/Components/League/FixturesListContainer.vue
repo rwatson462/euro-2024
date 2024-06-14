@@ -17,6 +17,6 @@ const sortedFixtures = computed(() => fixtures.sort((a,b) => a.kickoff_time.loca
 <template>
     <Container title="Fixtures">
         <FixtureList :fixtures="sortedFixtures"/>
-        <AddFixtureForm :teams="teams"/>
+        <AddFixtureForm :teams="teams" :league-id="leagueId"/>
     </Container>
 </template>
