@@ -11,15 +11,6 @@ const props = defineProps<PageProps<{
     leagues: League[];
 }>>()
 
-const groups = computed(() => props.leagueTables.reduce(
-        (acc, row) => {
-            if (!acc.includes(row.league.name)) {
-                acc.push(row.league.name)
-            }
-            return acc
-        }, [] as string[])
-)
-
 const tables = computed(() => props.leagueTables.reduce(
         (acc, row) => {
             if (!acc[row.league.name]) {
