@@ -42,7 +42,7 @@ function finalScore(fixture: Fixture): string {
                 <table class="w-full">
                     <thead>
                     <tr>
-                        <th class="text-left border-r border-r-slate-300">Team</th>
+                        <th class="text-left border-r border-r-slate-300 dark:border-r-slate-600">Team</th>
                         <th class="text-center w-20"><abbr title="Games played">P</abbr></th>
                         <th class="text-center w-20"><abbr title="Wins">W</abbr></th>
                         <th class="text-center w-20"><abbr title="Draws">D</abbr></th>
@@ -54,8 +54,8 @@ function finalScore(fixture: Fixture): string {
                     </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(row,key) of tables[league.name]" :key="key" class="hover:dark:bg-slate-700 hover:bg-slate-100 border-b border-b-slate-300">
-                            <td class="text-left border-r border-r-slate-300">{{ row.team.name }}</td>
+                        <tr v-for="(row,key) of tables[league.name]" :key="key" class="hover:dark:bg-slate-700 hover:bg-slate-100 border-b border-b-slate-300 dark:border-b-slate-600">
+                            <td class="text-left border-r border-r-slate-300 dark:border-r-slate-600">{{ row.team.name }}</td>
                             <td class="text-center">{{ row.played }}</td>
                             <td class="text-center">{{ row.won  }}</td>
                             <td class="text-center">{{ row.drawn }}</td>
