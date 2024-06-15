@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Views;
 
-use App\Models\Fixture;
 use App\Models\League;
 use App\Models\LeagueTable;
 use Inertia\Inertia;
