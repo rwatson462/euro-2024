@@ -28,6 +28,6 @@ class StoreResultController
             awayTeamScore: $request->validated('away_team_score'),
         );
 
-        return Redirect::back();
+        return Redirect::route('dashboard');
     }
 }
