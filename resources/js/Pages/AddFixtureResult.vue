@@ -5,6 +5,7 @@ import {Fixture} from "@/types/app";
 import Container from "@/Components/Container.vue";
 import PageTitle from "@/Components/PageTitle.vue";
 import {awayTeam, homeTeam} from "@/helpers/fixtures";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const props = defineProps<{
     fixture: Fixture,
@@ -44,7 +45,7 @@ function createFixtureResult() {
                     <span>{{ awayTeam(fixture).name }}</span>
                     <input type="number" name="away_team_score" placeholder="away team score" v-model="form.away_team_score" class="rounded-md dark:bg-slate-700 dark:text-slate-50" />
                 </p>
-                <button type="submit" class="bg-amber-300 shadow rounded-lg px-4 py-2">Add fixture result</button>
+                <PrimaryButton>Add fixture result</PrimaryButton>
             </form>
         </Container>
     </AuthenticatedLayout>

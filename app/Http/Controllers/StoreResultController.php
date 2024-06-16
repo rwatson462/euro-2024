@@ -27,6 +27,6 @@ class StoreResultController
             awayTeamScore: $request->validated('away_team_score'),
         );
 
-        return Redirect::route('league.view', ['league_id' => $fixture->league_id]);
+        return Redirect::back();
     }
 }
