@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\League;
-use App\Models\Team;
-use Illuminate\Http\Request;
+use App\Actions\AddTeamToLeague;
+use App\Http\Requests\AddTeamToLeagueRequest;
 use Illuminate\Support\Facades\Redirect;
 
-class AddTeamToLeagueController extends Controller
+class AddTeamToLeagueController
 {
-    public function __invoke(Request $request, string $league_id)
-    {
-        $team = $request->validate([
-            'team_id' => 'required|string',
-        ]);
+    public function __construct(
+        private readonly AddTeamToLeague $addTeamToLeague,
+    ) {
+        //
+    }
 
-        League::findOrFail($league_id)->teams()->attach(Team::findOrFail($team['team_id']));
+    public function __invoke(AddTeamToLeagueRequest $request, string $league_id)
+    {
+        $this->addTeamToLeague->handle(
+            leagueId: $league_id,
+            teamId: $request->validated('team_id'),
+        );
 
         return Redirect::route('league.view', ['league_id' => $league_id]);
     }

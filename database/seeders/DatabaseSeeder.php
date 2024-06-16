@@ -2,17 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\HomeOrAway;
+use App\Enums\HomeOrAway;
+use App\Enums\Ruleset;
 use App\Jobs\CalculateLeagueTable;
 use App\Models\League;
 use App\Models\Team;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Ruleset;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,8 +25,8 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Rob Watson',
-            'email' => 'rob.watson@me.com',
+            'name' => fake()->name(),
+            'email' => 'user@example.com',
             'password' => Hash::make('password'),
         ]);
 

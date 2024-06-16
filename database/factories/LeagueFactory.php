@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Ruleset;
+use App\Enums\Ruleset;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 

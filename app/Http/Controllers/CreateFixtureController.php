@@ -2,27 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\HomeOrAway;
-use App\Models\League;
-use Illuminate\Http\Request;
+use App\Actions\CreateFixture;
+use App\Http\Requests\CreateFixtureRequest;
 use Illuminate\Support\Facades\Redirect;
 
-class CreateFixtureController extends Controller
+class CreateFixtureController
 {
-    public function __invoke(Request $request, string $league_id)
+    public function __construct(
+        private readonly CreateFixture $createFixture
+    ) {
+        //
+    }
+
+    public function __invoke(CreateFixtureRequest $request, string $league_id)
     {
-        $fixtureData = $request->validate([
-            'home_team_id' => 'required|string',
-            'away_team_id' => 'required|string',
-            'kickoff_time' => 'required|date',
-        ]);
+        $fixtureData = $request->validated();
 
-        $fixture = League::findOrFail($league_id)->fixtures()->create([
-            'kickoff_time' => $fixtureData['kickoff_time'],
-        ]);
-
-        $fixture->teams()->attach($fixtureData['home_team_id'], ['home_or_away' => HomeOrAway::Home]);
-        $fixture->teams()->attach($fixtureData['away_team_id'], ['home_or_away' => HomeOrAway::Away]);
+        $this->createFixture->handle(
+            leagueId: $league_id,
+            kickoffTime: $request->validated('kickoff_time'),
+            homeTeamId: $request->validated('home_team_id'),
+            awayTeamId: $request->validated('away_team_id'),
+        );
 
         return Redirect::route('league.view', ['league_id' => $league_id]);
     }

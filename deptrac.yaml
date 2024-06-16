@@ -1,0 +1,77 @@
+deptrac:
+  paths:
+    - ./app
+  exclude_files:
+    - '#.*test.*#'
+    - '#../vendor/.*#'
+  layers:
+    - name: Action
+      collectors:
+        - type: directory
+          value: Actions/.*
+    - name: Event
+      collectors:
+          - type: directory
+            value: Events/.*
+    - name: Enum
+      collectors:
+          - type: directory
+            value: Enums/.*
+    - name: Controller
+      collectors:
+        - type: directory
+          value: Http/Controllers/.*
+    - name: Request
+      collectors:
+        - type: directory
+          value: Http/Requests/.*
+    - name: Query
+      collectors:
+        - type: directory
+          value: Queries/.*
+    - name: Model
+      collectors:
+        - type: directory
+          value: Models/.*
+    - name: Job
+      collectors:
+          - type: directory
+            value: Jobs/.*
+    - name: Listener
+      collectors:
+          - type: directory
+            value: Listeners/.*
+    - name: Vendor
+      collectors:
+        - type: className
+          value: ^(Illuminate|Inertia|Carbon)\\.*$
+  ruleset:
+    Controller:
+      - Request
+      - Action
+      - Query
+      - Vendor
+    Action:
+      - Query
+      - Event
+      - Model
+      - Vendor
+      - Enum
+    Query:
+      - Model
+      - Vendor
+    Request:
+      - Vendor
+    Event:
+      - Vendor
+    Listener:
+      - Job
+      - Action
+      - Query
+      - Event
+    Job:
+      - Action
+      - Vendor
+    Model:
+      - Vendor
+      - Enum

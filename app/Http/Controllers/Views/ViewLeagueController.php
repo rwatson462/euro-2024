@@ -2,19 +2,28 @@
 
 namespace App\Http\Controllers\Views;
 
-use App\Models\League;
-use App\Models\LeagueTable;
-use App\Models\Team;
+use App\Queries\FindLeagueById;
+use App\Queries\FindLeagueTableByLeagueId;
+use App\Queries\GetTeamsNotAttachedToLeagues;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class ViewLeagueController
 {
-    public function __invoke(string $league_id)
+    public function __construct(
+        private readonly FindLeagueById $findLeague,
+        private readonly GetTeamsNotAttachedToLeagues $getTeamsNotAttachedToLeagues,
+        private readonly FindLeagueTableByLeagueId $findLeagueTableByLeagueId,
+    ) {
+        //
+    }
+
+    public function __invoke(string $league_id): Response
     {
         return Inertia::render('League', [
-            'league' => League::with(['teams', 'fixtures', 'fixtures.teams', 'fixtures.results', 'fixtures.league'])->findOrFail($league_id),
-            'teams' => Team::whereDoesntHave('league')->get(),
-            'table' => LeagueTable::with('team')->whereLeagueId($league_id)->orderBy('position')->get(),
+            'league' => $this->findLeague->handle($league_id),
+            'teams' => $this->getTeamsNotAttachedToLeagues->handle(),
+            'table' => $this->findLeagueTableByLeagueId->handle($league_id),
         ]);
     }
 }

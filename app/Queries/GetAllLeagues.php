@@ -2,14 +2,11 @@
 
 namespace App\Queries;
 
-use App\Contracts\Query;
 use App\Models\League;
 
-class GetAllLeagues extends CacheableQuery
+class GetAllLeagues
 {
-    public const CACHE_KEY = 'all-leagues';
-
-    protected function query(): array
+    public function handle(): array
     {
         return League::query()
             ->with('fixtures', 'fixtures.teams', 'fixtures.results')

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,8 @@ use Illuminate\Support\Collection;
  * @property Carbon $kickoff_time
  * @property Collection<FixtureResult> $results
  * @property Collection<Team> $teams
+ *
+ * @mixin Builder
  */
 class Fixture extends Model
 {

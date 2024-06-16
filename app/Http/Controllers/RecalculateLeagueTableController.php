@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\CalculateLeagueTable;
+use App\Actions\RecalculateLeagueTable;
 use Illuminate\Support\Facades\Redirect;
 
-class RecalculateLeagueTableController extends Controller
+class RecalculateLeagueTableController
 {
+    public function __construct(
+        private readonly RecalculateLeagueTable $recalculateLeagueTable,
+    ) {
+        //
+    }
+
     public function __invoke(string $league_id)
     {
-        dispatch(new CalculateLeagueTable($league_id));
+        $this->recalculateLeagueTable->handle($league_id);
 
         return Redirect::route('league.view', ['league_id' => $league_id]);
     }

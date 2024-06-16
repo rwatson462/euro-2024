@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Fixture;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,15 @@ class FixtureTeamFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'fixture_id' => Fixture::factory(),
+            'team_id' => Team::factory(),
         ];
+    }
+
+    public function forFixture(Fixture $fixture): self
+    {
+        return $this->state([
+            'fixture_id' => $fixture->id,
+        ]);
     }
 }

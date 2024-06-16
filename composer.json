@@ -22,6 +22,7 @@
         "nunomaduro/collision": "^8.0",
         "pestphp/pest": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
+        "phpstan/phpstan": "^1.11",
         "spatie/laravel-ignition": "^2.4"
     },
     "autoload": {
@@ -51,7 +52,11 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
-        ]
+        ],
+        "test": "pest --coverage-html coverage/html",
+        "pint": "pint",
+        "deptrac": "php deptrac analyze --report-uncovered",
+        "stan": "vendor/bin/phpstan analyse app --xdebug --memory-limit=-1 --level 2"
     },
     "extra": {
         "laravel": {

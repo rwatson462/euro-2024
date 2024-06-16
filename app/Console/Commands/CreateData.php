@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\HomeOrAway;
+use App\Enums\HomeOrAway;
+use App\Enums\Ruleset;
 use App\Jobs\CalculateLeagueTable;
 use App\Models\League;
 use App\Models\Team;
-use App\Ruleset;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;

@@ -2,19 +2,28 @@
 
 namespace App\Http\Controllers\Views;
 
-use App\Models\Fixture;
-use App\Models\League;
-use App\Models\Team;
+use App\Queries\GetAllFixtures;
+use App\Queries\GetAllLeagues;
+use App\Queries\GetAllTeams;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class ViewDashboardController
 {
-    public function __invoke()
+    public function __construct(
+        private readonly GetAllTeams $getAllTeams,
+        private readonly GetAllLeagues $getAllLeagues,
+        private readonly GetAllFixtures $getAllFixtures,
+    ) {
+        //
+    }
+
+    public function __invoke(): Response
     {
         return Inertia::render('Dashboard', [
-            'teams' => Team::all(),
-            'leagues' => League::all(),
-            'fixtures' => Fixture::with('teams', 'league', 'results')->get(),
+            'teams' => $this->getAllTeams->handle(),
+            'leagues' => $this->getAllLeagues->handle(),
+            'fixtures' => $this->getAllFixtures->handle(),
         ]);
     }
 }

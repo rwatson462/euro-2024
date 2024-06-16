@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Team;
-use Illuminate\Http\Request;
+use App\Actions\CreateTeam;
+use App\Http\Requests\CreateTeamRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 
-class CreateTeamController extends Controller
+class CreateTeamController
 {
-    public function __invoke(Request $request)
-    {
-        $team = $request->validate([
-            'name' => 'required|string',
-        ]);
+    public function __construct(
+        private readonly CreateTeam $createTeam,
+    ) {
+        //
+    }
 
-        Team::create($team);
+    public function __invoke(CreateTeamRequest $request): RedirectResponse
+    {
+        $this->createTeam->handle($request->validated('name'));
 
         return Redirect::route('dashboard');
     }

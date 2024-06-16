@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers\Views;
 
-use App\Models\Fixture;
+use App\Queries\FindFixtureById;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class AddResultController
 {
-    public function __invoke(string $fixture_id)
+    public function __construct(
+        private readonly FindFixtureById $findFixture,
+    ) {
+        //
+    }
+
+    public function __invoke(string $fixture_id): Response
     {
-        /** @var Fixture $fixture */
-        $fixture = Fixture::with('teams', 'results')->findOrFail($fixture_id);
+        $fixture = $this->findFixture->handle($fixture_id);
 
         if ($fixture->results->count() > 0) {
             throw new \InvalidArgumentException('Results have already been added for this fixture');
