@@ -19,7 +19,8 @@ class StoreResultController
 
     public function __invoke(StoreResultRequest $request, string $fixture_id): RedirectResponse
     {
-        $fixture = $this->findFixtureById->handle($fixture_id);
+        // Verify Fixture exists
+        $this->findFixtureById->handle($fixture_id);
 
         $this->storeResult->handle(
             fixtureId: $fixture_id,
