@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import {Head, Link} from '@inertiajs/vue3';
+import {Head} from '@inertiajs/vue3';
 import {computed} from "vue";
 import {PageProps} from "@/types";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import Container from "@/Components/Container.vue";
+import Footer from "@/Components/Footer.vue";
+import NavLink from "@/Components/NavLink.vue";
 import {Fixture, League, LeagueTableRecord} from "@/types/app";
 import {formatDate} from "@/helpers/date";
 import {awayTeam, homeTeam} from "@/helpers/fixtures";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 
 const props = defineProps<PageProps<{
     leagueTables: LeagueTableRecord[];
@@ -29,6 +32,10 @@ function finalScore(fixture: Fixture): string {
     }
     return `${fixture.results[0].goals_scored} - ${fixture.results[0].goals_conceded}`
 }
+
+console.log(props.auth.user)
+
+const isLoggedIn = computed(() => !! props.auth.user)
 
 </script>
 
@@ -91,5 +98,10 @@ function finalScore(fixture: Fixture): string {
 
             </div>
         </Container>
+
+        <Footer>
+            <NavLink href="/dashboard" class="text-sm text-gray-600" v-if="isLoggedIn">Dashboard</NavLink>
+            <NavLink href="/login" class="text-sm text-gray-600" v-else>Login</NavLink>
+        </Footer>
     </GuestLayout>
 </template>
