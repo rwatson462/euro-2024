@@ -18,7 +18,7 @@ class Team extends Model
 {
     use HasFactory, HasUuids;
 
-    public $guarded = ['id'];
+    protected $guarded = ['id'];
 
     public function league(): BelongsToMany
     {

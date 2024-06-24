@@ -27,7 +27,7 @@ class League extends Model
 {
     use HasFactory, HasUuids;
 
-    public $guarded = ['id'];
+    protected $guarded = ['id'];
 
     public function casts(): array
     {

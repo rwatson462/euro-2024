@@ -18,7 +18,7 @@ class FixtureTeam extends Model
 
     public $timestamps = false;
 
-    public $guarded = [];
+    public $guarded = ['id'];
 
     public function casts(): array
     {
